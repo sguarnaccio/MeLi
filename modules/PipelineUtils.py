@@ -26,13 +26,13 @@ import numpy as np
 class Autoencoder:
     @staticmethod
     def build(feature_dim, hidden_layers=(128, 64), latentDim=32):
-        # initialize the input shape to be "channels last" along with
-        # the channels dimension itself
-        # channels dimension itself
+        # inicializo el input shape con las dimensiones de los onehot encoding 
+        # de mis variables categoricas
+
         inputShape = (feature_dim, )
         chanDim = -1
         
-        # define the input to the encoder
+        # define el input del encoder
         inputs = Input(shape=inputShape)
         x = inputs
         # loop over the number of filters
@@ -41,7 +41,7 @@ class Autoencoder:
             x = Dense(hl, activation='tanh')(x)
             x = LeakyReLU(alpha=0.2)(x)
             x = BatchNormalization(axis=chanDim)(x)
-        # construct our latent vector
+        # construimos el vector latente o encoding de mis features
         latent = Dense(latentDim)(x)
         # build the encoder model
         encoder = Model(inputs, latent, name="encoder")
